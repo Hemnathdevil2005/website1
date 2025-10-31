@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mr Studios | Behance Style Project Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    /* ==================== NAVIGATION BAR ==================== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      height: 60px;
+      background-color: white;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 600;
+      color: #0055ff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-link {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .nav-link.active {
+      color: #000;
+      font-weight: 600;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 3px;
+      background-color: #000;
+      border-radius: 2px;
+    }
+
+    .search-container {
+      flex-grow: 1;
+      max-width: 600px;
+      margin: 0 40px;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 40px;
+      padding-left: 40px;
+      border: none;
+      border-radius: 8px;
+      background-color: #f3f3f3;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23777' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 15px center;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: #0055ff;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: #0055ff;
+      border: 1px solid #0055ff;
+    }
+
+    /* ==================== MAIN CONTENT ==================== */
+    .main-container {
+      display: flex;
+      justify-content: center;
+      padding: 40px 80px;
+      position: relative;
+    }
+
+    .content {
+      max-width: 900px;
+    }
+
+    .content img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* ==================== RIGHT SIDEBAR (SMALLER VERSION) ==================== */
+    .action-sidebar {
+      position: fixed;
+      right: 20px;
+      top: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: white;
+      padding: 15px 8px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      gap: 20px;
+      width: 85px; /* smaller width */
+      z-index: 999;
+    }
+
+    .profile-follow-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .profile-pic-container {
+      position: relative;
+      width: 55px; /* reduced from 70px */
+      height: 55px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #f0f0f0;
+    }
+
+    .profile-pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .add-follow-icon {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background-color: #0055ff;
+      color: white;
+      border-radius: 50%;
+      width: 18px; /* smaller */
+      height: 18px;
+      font-size: 11px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid white;
+    }
+
+    .action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      gap: 5px;
+    }
+
+    .action-circle {
+      width: 45px; /* smaller circles */
+      height: 45px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px; /* smaller icons */
+      transition: background-color 0.2s;
+    }
+
+    .action-circle:hover {
+      background-color: #e6e6e6;
+    }
+
+    .appreciated-circle {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: #333;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    .action-item span {
+      font-size: 12px;
+    }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      background-color: #161616;
+      color: #ddd;
+      padding: 60px 8% 20px;
+      margin-top: 80px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer h3 {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer ul li a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer ul li a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    @media (max-width: 1024px) {
+      .action-sidebar {
+        display: none; /* hide sidebar on smaller screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="#" class="logo-text">Bēhance</a>
+      <div class="nav-links">
+        <a href="#" class="nav-link active">Explore</a>
+        <a href="#" class="nav-link">Jobs</a>
+        <a href="#" class="nav-link">Resources</a>
+        <a href="#" class="nav-link">Hire</a>
+      </div>
+    </div>
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search...">
+    </div>
+    <div class="nav-right">
+      <a href="#" class="btn btn-primary">Start Free Trial</a>
+      <a href="#" class="btn btn-secondary">Sign In</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-container">
+    <div class="content">
+      <img src="img1.png" alt="">
+      <img src="img2.png" alt="">
+      <img src="img3.png" alt="">
+      <img src="img4.png" alt="">
+      <img src="img5.png" alt="">
+      <img src="img6.png" alt="">
+      <img src="img7.png" alt="">
+      <img src="img8.png" alt="">
+      <img src="img9.png" alt="">
+    </div>
+
+    <!-- SMALLER RIGHT SIDEBAR -->
+    <div class="action-sidebar">
+      <div class="profile-follow-group">
+        <div class="profile-pic-container">
+          <img src="hem.png" alt="Profile Picture" class="profile-pic">
+          <div class="add-follow-icon"><i class="fas fa-plus"></i></div>
+        </div>
+        <span>Follow</span>
+      </div>
+
+      <a href="#" class="action-item">
+        <div class="action-circle"><i class="fas fa-envelope"></i></div>
+        <span>Hire</span>
+      </a>
+
+      <a href="#" class="action-item">
+        <div class="action-circle"><i class="fas fa-tools"></i></div>
+        <span>Tools</span>
+      </a>
+
+      <a href="#" class="action-item">
+        <div class="action-circle"><i class="fas fa-folder"></i></div>
+        <span>Save</span>
+      </a>
+
+      <a href="#" class="action-item">
+        <div class="action-circle"><i class="fas fa-upload"></i></div>
+        <span>Share</span>
+      </a>
+
+      <a href="#" class="action-item">
+        <div class="appreciated-circle">
+          <i class="fas fa-thumbs-up"></i>
+          <span style="font-size:10px;">1</span>
+        </div>
+        <span>Appreciated</span>
+      </a>
+    </div>
+  </div>
+  
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mr Studios Project Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Reset & Body Styles --- */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0; /* Light background for the overall page */
+            color: #333;
+        }
+
+        /* --- Top Header Section --- */
+        .top-header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .like-button-container {
+            margin-bottom: 20px;
+        }
+
+        .like-button {
+            background-color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: #ccc;
+            position: relative;
+            margin-bottom: 5px;
+        }
+
+        .like-button:hover {
+            background-color: #555;
+            color: #fff;
+        }
+
+        .like-count {
+            font-size: 14px;
+            color: #aaa;
+            display: block; /* Ensures it sits below the button */
+        }
+
+        .project-title-header {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .project-stats-header {
+            font-size: 15px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .published-date-header {
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* --- Author Profile Section --- */
+        .author-section {
+            background-color: #fff;
+            padding: 20px 40px; /* Padding to match the image's spacing */
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .author-profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            background-color: #ccc; /* Placeholder background */
+        }
+
+        .author-info {
+            flex-grow: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .follow-button {
+            background-color: #0055ff;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .follow-button:hover {
+            background-color: #0044cc;
+        }
+
+        /* --- Image Gallery Section --- */
+        .gallery-container {
+            position: relative;
+            padding: 80pxpx; /* Padding around the entire gallery */
+            overflow: hidden; /* Hide scrollbar for the container */
+        }
+
+        .image-gallery {
+            display: flex;
+            gap: 20px; /* Space between images */
+            overflow-x: scroll; /* Enable horizontal scrolling */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            padding-bottom: 20px; /* Space for a subtle scrollbar */
+            scroll-behavior: smooth; /* Smooth scroll on button click */
+            /* Hide the actual scrollbar while keeping functionality */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Hide scrollbar for Webkit browsers */
+        .image-gallery::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-item {
+            flex: 0 0 auto; /* Do not grow, do not shrink, base size is auto */
+            width: 450px; /* Approximate width of each image card */
+            height: 300px; /* Approximate height of each image card */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: #fff; /* Fallback for image loading */
+            display: flex; /* To center content like "UI/UX Design" */
+            justify-content: center;
+            align-items: center;
+            font-size: 24px; /* For placeholder text */
+            color: #555;
+            position: relative; /* For text overlays if needed */
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the card area */
+            display: block;
+        }
+
+        /* Placeholder styles for images if you don't have them */
+        .gallery-item:nth-child(1) { background-image: url('https://via.placeholder.com/450x300/e0e0e0/333?text=Design+System'); }
+        .gallery-item:nth-child(2) { background-image: url('https://via.placeholder.com/450x300/d0d0d0/333?text=App+Mockup'); }
+        .gallery-item:nth-child(3) { background-image: url('https://via.placeholder.com/450x300/c0c0c0/333?text=LocalCart+Mobile+App'); }
+        /* Add more if you have more images */
+
+        /* Scroll Buttons */
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 10;
+            transition: background-color 0.2s;
+        }
+
+        .scroll-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .scroll-button.left {
+            left: 10px;
+        }
+
+        .scroll-button.right {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="like-button-container">
+            <button class="like-button">
+                <i class="fas fa-thumbs-up"></i>
+            </button>
+            <span class="like-count">1</span>
+        </div>
+        <h1 class="project-title-header">mr Studios | Landing Page</h1>
+        <p class="project-stats-header">
+            <i class="fas fa-eye"></i> 43
+            &bull; <i class="fas fa-comment"></i> 0
+        </p>
+        <p class="published-date-header">Published: July 30th 2025</p>
+    </header>
+
+    <section class="author-section">
+        <img src="hem.png" alt="Hemanth" class="author-profile-pic">
+        <div class="author-info">
+            <p class="author-name" style="color: black;">Hemanth</p>
+        </div>
+        <button class="follow-button">Follow</button>
+    </section>
+
+    <section class="gallery-container">
+        <div class="image-gallery" id="imageGallery">
+            <div class="gallery-item">
+                <img src="img11.png" alt="Design System">
+            </div>
+            <div class="gallery-item">
+                <img src="img12.png" alt="App Mockup">
+            </div>
+            <div class="gallery-item">
+                <img src="img13.png" alt="LocalCart Mobile App">
+            </div>
+            <div class="gallery-item">
+                <img src="img14.png" alt="Another Design">
+            </div>
+            <div class="gallery-item">
+                <img src="img15.png" alt="Final Design">
+            </div>
+        </div>
+        <button class="scroll-button left" onclick="scrollGallery(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="scroll-button right" onclick="scrollGallery(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </section>
+
+    <script>
+        const imageGallery = document.getElementById('imageGallery');
+
+        function scrollGallery(direction) {
+            const scrollAmount = 500; // Adjust scroll distance as needed
+            imageGallery.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card Recreation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- General Styling and Layout --- */
+        body {
+            font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* A common design font */
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 20px; /* Space between the owner section and the tools section */
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* --- Common Card Styling --- */
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 12px;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* --- Owner Section Styling --- */
+        .owner-section {
+            width: 300px; /* Fixed width as seen in the design */
+            flex-shrink: 0;
+        }
+
+        /* Profile Info (Image and Details) Styling */
+        .profile-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+            /* Placeholder styling to show where the image should be */
+            background-color: #ccc; 
+            border: 2px solid #fff;
+        }
+
+        .profile-name {
+            font-weight: 600; /* Semi-bold */
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .profile-location {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Button Styling (Follow and Hire) */
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s, opacity 0.2s;
+            font-size: 15px;
+        }
+
+        .btn-follow {
+            background-color: #0055ff; /* Primary Blue */
+            color: white;
+        }
+
+        .btn-follow i {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        .btn-follow:hover {
+            background-color: #0044cc;
+        }
+
+        .btn-hire {
+            background-color: white;
+            color: #0055ff;
+            border: 1px solid #0055ff;
+        }
+
+        .btn-hire:hover {
+            background-color: #e6f0ff;
+        }
+
+        /* --- Tools Section (Basic Placeholder) --- */
+        .tools-section {
+            flex-grow: 1;
+            /* Add more specific styling for the tools layout if needed */
+        }
+        
+        .tools-list {
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        /* --- Project Info Section (Basic Placeholder) --- */
+        .project-info-section {
+            /* Positioned below the owner section in a vertical layout */
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        .project-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .project-stats {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .published-date {
+            font-size: 12px;
+            color: #777;
+        }
+        .
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <div>
+            <div class="owner-section card">
+                <h4 class="section-title">OWNER</h4>
+                <div class="profile-info">
+                    <img src="hem.png" alt="Mohammed Rehman's Profile Picture" class="profile-pic">
+                    <div class="profile-details">
+                        <p class="profile-name" style="color: white;">Hemanth</p>
+                        <p class="profile-location">📍 Tamilnadu, India</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-follow">
+                    <i class="fas fa-plus"></i> Follow
+                </button>
+                <button class="btn btn-hire">Hire</button>
+            </div>
+
+            <div class="project-info-section card">
+                <h3 class="project-title">mr Studios | Landing Page</h3>
+                <p class="project-stats">
+                    <i class="fas fa-thumbs-up"></i> 1 
+                    &bull; <i class="fas fa-eye"></i> 43 
+                    &bull; <i class="fas fa-comment"></i> 0
+                </p>
+                <p class="published-date">Published: July 30th 2025</p>
+            </div>
+        </div>
+
+
+        <div class="tools-section card">
+            <h4 class="section-title">TOOLS</h4>
+            <p class="tools-list">Figma, Adobe Photoshop</p>
+
+            <h4 class="section-title">CREATIVE FIELDS</h4>
+            <div style="background-color: #333; color: white; padding: 10px; margin-bottom: 5px; border-radius: 4px; text-align: center; font-weight: bold;">
+                UI/UX
+            </div>
+            <div style="background-color: #333; color: white; padding: 10px; margin-bottom: 20px; border-radius: 4px; text-align: center; font-weight: bold;">
+                Web Design
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 50px; padding-top: 60px;">
+                <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 12px; font-size: 14px; color: #333;">Web Design</span>
+                <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 12px; font-size: 14px; color: black;">landing page</span>
+                <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 12px; font-size: 14px; color: black;">Figma</span>
+                <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 12px; font-size: 14px; color: black;">ui design</span>
+                <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 12px; font-size: 14px; color: black;">Web</span>
+                <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 12px; font-size: 14px ; color: black; ">UI/UX</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div><div class="brand">Bēhance</div></div>
+      <div>
+        <h3>Built For Creatives</h3>
+        <ul>
+          <li><a href="#">Try Behance Pro</a></li>
+          <li><a href="#">Find Inspiration</a></li>
+          <li><a href="#">Get Hired</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Find Talent</h3>
+        <ul>
+          <li><a href="#">Post a Job</a></li>
+          <li><a href="#">Graphic Designers</a></li>
+          <li><a href="#">Photographers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Behance</h3>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Adobe Portfolio</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Social</h3>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Adobe Inc. All rights reserved.</span>
+      <div>
+        <a href="#">English</a> |
+        <a href="#">TOU</a> |
+        <a href="#">Privacy</a> |
+        <a href="#">Cookie Preferences</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
